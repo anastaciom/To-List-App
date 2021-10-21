@@ -7,16 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="./assets/list_64px.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <!-- message to notify the user that he is disconnected -->
 
     <span id="msgLogOut">
         <h4>Log Out :(</h4>
     </span>
+
+    <!-- header      -->
 
     <header id="userData">
         <div id="userPhoto">
@@ -25,13 +29,18 @@
         <button class="btn" id="btnSignOut">Sign Out</button>
     </header>
 
+    <!-- login area -->
 
     <div id="login">
         <h1>Welcomee!! :)</h1>
-            <img src="./assets/googleLogin.png" alt="">
+        <img src="./assets/googleLogin.png" alt="">
     </div>
 
+    <!-- To-do-list -->
+
     <main>
+        <!-- to-do-list header -->
+
         <div id="headerMain">
             <h1>To-Do List</h1>
             <input type="text" placeholder="New task" id="inputTask" autocomplete="off">
@@ -40,24 +49,26 @@
                 <button class="btn" id="addTask">Add task</button>
             </div>
         </div>
-       
+
+        <!-- to-do-list content -->
+
         <div id="content">
             <h2>Tasks</h2>
             <span id="message">
                 <h4>Start putting your first task today...</h4>
             </span>
             <ul id="tasks">
-            <!-- data from js -->
-            
+                <!-- data coming from JS -->
             </ul>
         </div>
     </main>
+
+
     <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 
     <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script defer src="./config.js"></script>
-    <script defer src="./app.js"></script>
 
 </body>
 

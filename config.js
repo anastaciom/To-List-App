@@ -30,6 +30,12 @@ const addTask = document.querySelector('#addTask');
 const inputTask = document.querySelector('#inputTask');
 
 
+//==========
+btnLogin.addEventListener('click', signIn);
+btnSignOut.addEventListener('click', signOut);
+//==========
+
+
 //sign and signOut
 
 function signIn() {
@@ -39,27 +45,27 @@ function signIn() {
         UserName: result.user.displayName
       }, { merge: true })
     }).catch((error) => {
-      console.log(error)
+      console.log(error);
     });
-}
-//
+};
+
 function signOut() {
   auth.signOut().then(() => {
     btnLogin.style.display = 'flex';
     main.style.display = 'none';
     userData.style.display = 'none';
-    msgLogOut.style.display ='block'
+    msgLogOut.style.display = 'block';
     setTimeout(() => {
-      msgLogOut.style.display ='none'
+      msgLogOut.style.display = 'none';
     }, 1000);
-    
+
   }).catch((error) => {
-    console.log(error)
-   
+    console.log(error);
+
   });
 
-}
-//==========
+};
+//====
 
 
 
@@ -71,36 +77,19 @@ auth.onAuthStateChanged((user) => {
     btnLogin.style.display = 'none';
     main.style.display = 'flex';
     userData.style.display = 'flex';
-    userName.textContent = (user.displayName)
-    userPhoto.innerHTML = `<img src="${user.photoURL}">`
+    userName.textContent = (user.displayName);
+    userPhoto.innerHTML = `<img src="${user.photoURL}">`;
     db.collection("Users").doc(user.uid).onSnapshot((doc) => {
-      getTaskFromDB(doc)
-    },()=>{});
-    
-    addTask.addEventListener('click', () => {
-      if (inputTask.value !== '') {
-        db.collection('Users').doc(user.uid).set({
-          tasks: firebase.firestore.FieldValue.arrayUnion(
-            {
-              task: inputTask.value,
+      getTaskFromDB(doc);
+    }, () => { });
 
-            }
-          )
-        }, { merge: true })
-        inputTask.value = ''
-      }
-    })
-
-    removeAllTask.addEventListener('click', () => {
-      db.collection('Users').doc(user.uid).update({
-        tasks: firebase.firestore.FieldValue.delete()
-      });
-      inputTask.value = ''
-    })
-  }    
+    btnAddTasks(user);
+    btnRemoveTasks(user);
+  }
 })
 
 
+// Takes the task that has been added to the database and shows it on the screen
 
 function getTaskFromDB(doc) {
   message.style.display = 'none';
@@ -114,19 +103,44 @@ function getTaskFromDB(doc) {
   } else {
     message.style.display = 'block';
   }
-  function createNewTask(newTask) {
-    let li = document.createElement('li');
-    li.innerText = "";
-    li.innerHTML = newTask;
-    return li;
-  }
-
 }
 
+function createNewTask(newTask) {
+  let li = document.createElement('li');
+  li.innerText = "";
+  li.innerHTML = newTask;
+  return li;
+}
+
+//=======
 
 
 
 
+//BTNS
 
+function btnAddTasks(user) {
 
+  addTask.addEventListener('click', () => {
+    if (inputTask.value !== '') {
+      db.collection('Users').doc(user.uid).set({
+        tasks: firebase.firestore.FieldValue.arrayUnion(
+          {
+            task: inputTask.value,
 
+          }
+        )
+      }, { merge: true })
+      inputTask.value = ''
+    };
+  });
+};
+
+function btnRemoveTasks(user) {
+  removeAllTask.addEventListener('click', () => {
+    db.collection('Users').doc(user.uid).update({
+      tasks: firebase.firestore.FieldValue.delete()
+    });
+    inputTask.value = ''
+  });
+};
