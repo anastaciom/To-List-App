@@ -5,7 +5,6 @@
 ## **Website in mobile version :iphone: :** 
 ![website in mobile version](./assets/readme-images/Mobile.png)
 
-----
 
 ## **Website viewed by computer 💻 :**
 ![website viewed by computer](./assets/readme-images/Desktop.png)
